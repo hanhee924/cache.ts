@@ -1,15 +1,21 @@
+import Options from "./options";
 import { Queue } from "./queue";
 import { QueueMetadata, UniqueId } from "./types";
 import { createUniqueId, getCreateAt } from "./utils";
 
 class _Cache {
     private static instance: _Cache;
-    queues: QueueMetadata[];
+    private queues: QueueMetadata[];
     createdAt: number;
+    options: Options;
 
-    constructor() {
+    constructor(o?: Options) {
         this.queues = [];
         this.createdAt = getCreateAt();
+        this.options = o ? o : {
+            updateAfterInquiry: true,
+            maintainConsistency: false
+        }
     }
     static getInstance(): _Cache {
         if (!this.instance)
@@ -41,6 +47,9 @@ class _Cache {
     getByIndex(i: number): Queue<any> | null {
         if (this.queues.length < i || 0 > i) return null;
         return this.queues[i].queue;
+    }
+    setOptions(o: Options) {
+        this.options = o;
     }
 }
 export const Cache = _Cache.getInstance();
