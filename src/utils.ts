@@ -9,9 +9,11 @@ export const isJSONObject = (
         return false;
     return true;
 }
+
 export const createUniqueId = (): UniqueId => {
     return "id" + Math.random().toString(16).slice(2);
 }
+
 export const getCreateAt = (): number => {
     return new Date().valueOf();
 }
