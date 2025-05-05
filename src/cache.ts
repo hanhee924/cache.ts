@@ -17,11 +17,13 @@ class _Cache {
             maintainConsistency: false
         }
     }
+    
     static getInstance(): _Cache {
         if (!this.instance)
             this.instance = new _Cache();
         return this.instance;
     }
+    
     create<T>(): UniqueId {
         const d = createUniqueId();
         this.queues.push({
@@ -30,6 +32,7 @@ class _Cache {
         });
         return d;
     }
+    
     remove(d: UniqueId): boolean {
         if (this.queues.length <= 0) return false;
         const index = this.queues.findIndex((args: QueueMetadata) => {
@@ -39,15 +42,18 @@ class _Cache {
         this.queues.slice(index, 1);
         return true;
     }
+    
     get(d: UniqueId): Queue<any> | null {
         return this.queues.filter(
             args => args.id === d
         )[0].queue;
     }
+    
     getByIndex(i: number): Queue<any> | null {
         if (this.queues.length < i || 0 > i) return null;
         return this.queues[i].queue;
     }
+    
     setOptions(o: Options) {
         this.options = o;
     }
