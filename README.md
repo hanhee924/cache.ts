@@ -1,5 +1,5 @@
-# ts-cache
-A library designed to prevent continuous database access.
+# cache.ts
+Library designed to prevent continuous database access.
 <br />
 It is stored volatile and is compatible with all objects and types.
 
